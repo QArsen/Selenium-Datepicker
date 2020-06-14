@@ -1,2 +1,2 @@
 # selenium-datepicker
-displays date in date picker after n days
+Date picker displays which date will be after any number entering 
