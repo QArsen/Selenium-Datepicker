@@ -39,6 +39,6 @@ public class DataPickerPageTest extends BaseClass {
     @Test(priority = 1)
     public void findCurrentDate() {
         datePickerPage.clickOnDatePickerButton();
-        datePickerPage.findDate(366);
+        datePickerPage.findDate(15);
     }
 }
