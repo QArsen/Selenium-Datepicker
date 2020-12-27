@@ -16,8 +16,9 @@ public class DatePickerPage extends BaseClass {
         Elements.pick_date_button.click();
     }
 
+    private static boolean flag = true;
+
     public void findDate(int date) {
-        boolean flag = true;
         List<WebElement> list = driver.findElements(By.cssSelector("div.datepicker-panel li"));
         List<WebElement> days = new ArrayList<>();
         String currentDate = waitForElementIsPresent(Elements.current_date).getText();
@@ -26,6 +27,8 @@ public class DatePickerPage extends BaseClass {
         if (date == 0) {
             waitForElementIsPresent(Elements.current_date).click();
             flag = false;
+            printSelectedDate();
+            return;
         } else if (flag) {
             for (WebElement element : list) {
                 if (element.getAttribute("class").equalsIgnoreCase("highlighted picked") || element.getAttribute("data-view").equalsIgnoreCase("day")) {
@@ -40,12 +43,13 @@ public class DatePickerPage extends BaseClass {
                 }
             }
         }
+        printSelectedDate();
     }
 
     public int countDays(int res) {
         List<WebElement> list = driver.findElements(By.cssSelector("div.datepicker-panel li"));
         List<WebElement> day = new ArrayList<>();
-        for (WebElement s : list) {
+;        for (WebElement s : list) {
             if (!s.getAttribute("class").equalsIgnoreCase("muted")
                     && s.getAttribute("data-view").equalsIgnoreCase("day")) {
                 day.add(s);
@@ -67,10 +71,14 @@ public class DatePickerPage extends BaseClass {
         return res;
     }
 
+    public void printSelectedDate() {
 
-    public String printSelectedDate() {
-        return "Selected date is : " + waitForElementIsPresent(Elements.selected_date).getText() + " " +
-                waitForElementIsPresent(Elements.current_month).getText() + " year";
+        if (!flag) {
+            System.out.println("Selected date is : " + Elements.current_date.getText() + " " +
+                    waitForElementIsPresent(Elements.current_month).getText() + " year");
+        } else
+            System.out.println("Selected date is : " + waitForElementIsPresent(Elements.selected_date).getText() + " " +
+                    waitForElementIsPresent(Elements.current_month).getText() + " year");
     }
 }
 
